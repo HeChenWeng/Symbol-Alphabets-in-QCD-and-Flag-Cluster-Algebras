@@ -4,15 +4,16 @@
 (*5-point letters*)
 
 
-Quit[]
+(* ::Code:: *)
+(*Quit[]*)
 
 
-(* ::Section::Initialization::Closed:: *)
-(*Two-loop planar pentagon symbol letter in [1807.09812]*)
+(* ::Section:: *)
+(*Two-loop pentagon symbol alphabet in [1807.09812]*)
 
 
-(* ::Text::Initialization:: *)
-(*The two-loop pentagon symbol letter provided in Gehrmann, Henn and Presti's paper: "Pentagon functions for massless planar scattering amplitudes".*)
+(* ::Text:: *)
+(*The two-loop pentagon symbol alphabet provided in Gehrmann, Henn and Presti's paper: "Pentagon functions for massless planar scattering amplitudes".*)
 
 
 Wlist={v[1],v[2],v[3],v[4],v[5],v[3]+v[4],v[4]+v[5],v[1]+v[5],
@@ -28,11 +29,11 @@ v[1]-v[3]-v[4]+v[5],v[1]+v[2]-v[4]-v[5],-v[1]+v[2]+v[3]-v[5],
 ,Sqrt[d]}/.d:>(v[1]v[2]+v[2]v[3]-v[3]v[4]+v[4]v[5]-v[5]v[1])^2-4 v[1]v[2]v[3](v[2]-v[4]-v[5]);
 
 
-(* ::Section::Initialization::Closed:: *)
-(*Evaluate spinor helicity bracket and Plucker coordinate*)
+(* ::Section::Closed:: *)
+(*Evaluate spinor helicity brackets and Plucker coordinates*)
 
 
-(* ::Subsection::Initialization::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*Definitions*)
 
 
@@ -45,7 +46,7 @@ randEval={x[1,1]->167,x[1,2]->241,x[1,3]->233,x[2,1]->433,x[2,2]->109,x[2,3]->79
 
 
 (* ::Input::Initialization:: *)
-(*randEval=Table[x[i,j]->RandomPrime[{50,500}],{i,1,6},{j,1,4}]//Flatten*)
+(*randEval=Table[x[i,j]->RandomPrime[{50,500}],{i,1,5},{j,1,3}]//Flatten*)
 
 
 (* ::Input::Initialization:: *)
@@ -65,27 +66,27 @@ B[a_,b_]:=Det[{ZZ[[a,1;;2]],ZZ[[b,1;;2]]}]
 penkin:={v[1]->SpinorAngle[1,2] SpinorSquare[1,2],v[2]->SpinorAngle[2,3] SpinorSquare[2,3],v[3]->SpinorAngle[3,4] SpinorSquare[3,4],v[4]->SpinorAngle[4,5] SpinorSquare[4,5],v[5]->SpinorAngle[5,1] SpinorSquare[5,1]}
 
 
-(* ::Subsection::Initialization::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*Examples*)
 
 
-(* ::Text::Initialization:: *)
-(*hexkin maps the variables in the planar data (v[i],r[i],eps[i,j,k,l]) to spinor helicity bracket*)
+(* ::Text:: *)
+(*penkin maps the variables in the symbol letters (v[i]) to spinor helicity brackets*)
 
 
 (* ::Input::Initialization:: *)
 v[1]/.penkin
 
 
-(* ::Text::Initialization:: *)
-(*sToP maps spinor helicity bracket to Plucker coordinate of Subscript[Fl, 2,4;6]*)
+(* ::Text:: *)
+(*sToP maps spinor helicity bracket to Plucker coordinate of Fl[2,3;5]*)
 
 
 (* ::Input::Initialization:: *)
 v[1]/.penkin/.sToP
 
 
-(* ::Text::Initialization:: *)
+(* ::Text:: *)
 (*evalP evaluate the numerical value of the Plucker coordinate with respect to a fixed random matrix*)
 
 
@@ -93,8 +94,8 @@ v[1]/.penkin/.sToP
 v[1]/.penkin/.sToP/.evalP
 
 
-(* ::Subsection::Initialization::Closed:: *)
-(*Sanity checks: antisymmetry of spinor bracket, Shouten identity and momentum conservation*)
+(* ::Subsection::Closed:: *)
+(*Sanity checks: antisymmetry of spinor bracket, Schouten identity and momentum conservation*)
 
 
 (* ::Input::Initialization:: *)
@@ -113,8 +114,8 @@ Table[SpinorAngle[i,j]SpinorAngle[k,l]+SpinorAngle[j,k]SpinorAngle[i,l]+SpinorAn
 Table[Sum[SpinorAngle[i,j]SpinorSquare[j,k],{j,1,5}],{i,1,5},{k,1,5}]/.sToP/.evalP//Flatten//DeleteDuplicates
 
 
-(* ::Section::Initialization::Closed:: *)
-(*Cluster variables of Subscript[Fl, 2,3;5]*)
+(* ::Section::Closed:: *)
+(*Cluster variables of Fl[2,3;5]*)
 
 
 cyclic5=Table[Thread[{1,2,3,4,5}->i],{i,{{1,2,3,4,5},{2,3,4,5,1},{3,4,5,1,2},{4,5,1,2,3},{5,1,2,3,4}}}];
@@ -132,17 +133,17 @@ cyclic5=Table[Thread[{1,2,3,4,5}->i],{i,{{1,2,3,4,5},{2,3,4,5,1},{3,4,5,1,2},{4,
 (P[2,5] P[1,3,4]-P[1,4] P[2,3,5]/.cyclic5);
 
 
-(* ::Section::Initialization::Closed:: *)
+(* ::Section::Closed:: *)
 (*Matching symbol letters*)
 
 
-(* ::Text::Initialization:: *)
+(* ::Text:: *)
 (*We provide the combination of the cluster variables to match with the letters.*)
-(*Note that the replacement rules are only valid for Re[Subscript[\[Epsilon], 1,2,3,4]]>0. *)
-(*For Re[Subscript[\[Epsilon], 1,2,3,4]]<0, Subscript[W, 26]-Subscript[W, 30] map to the inverse of what is provided below.*)
+(*Note that the replacement rules are only valid for Re[\[Epsilon][1,2,3,4]]>0. *)
+(*For Re[\[Epsilon][1,2,3,4]]<0, W[26]-W[30] map to the inverse of what is given below.*)
 
 
-(*Subscript[\[Epsilon], 1,2,3,4]*)
+(*\[Epsilon][1,2,3,4]*)
 SpinorAngle[1,2]SpinorAngle[4,5]SpinorSquare[2,4]SpinorSquare[1,5]-
 SpinorSquare[1,2]SpinorSquare[4,5]SpinorAngle[2,4]SpinorAngle[1,5]/.sToP/.evalP
 
@@ -159,9 +160,15 @@ W[30]->-((a[3] a[5] b[4] b[6])/(a[4] a[6] b[3] b[5]))}
 
 
 Table[Wlist[[i]],{i,1,30}]/.penkin/.sToP/.evalP;
-{a[1]b[1],a[2]b[2],a[3]b[3],a[4]b[4],a[5]b[5],-c[1],-c[2],-c[3],-c[4],-c[5],
--c[6],-c[7],-c[8],-c[9],-c[10],-a[6]b[6],-a[7]b[7],-a[8]b[8],-a[9]b[9],-a[10]b[10],
-c[11],c[12],c[13],c[14],c[15],-((a[1]a[4]b[7]b[5])/(a[7]a[5]b[1]b[4])),-((a[2]a[5]b[8]b[1])/(a[8]a[1]b[2]b[5])),
--((a[3]a[1]b[9]b[2])/(a[9]a[2]b[3]b[1])),-((a[4]a[2]b[10]b[3])/(a[10]a[3]b[4]b[2])),-((a[5]a[3]b[6]b[4])/(a[6]a[4]b[5]b[3]))
+{a[1]b[1],a[2]b[2],a[3]b[3],a[4]b[4],a[5]b[5],
+-c[1],-c[2],-c[3],-c[4],-c[5],
+-c[6],-c[7],-c[8],-c[9],-c[10],
+-a[6]b[6],-a[7]b[7],-a[8]b[8],-a[9]b[9],-a[10]b[10],
+c[11],c[12],c[13],c[14],c[15],
+-((a[1]a[4]b[7]b[5])/(a[7]a[5]b[1]b[4])),
+-((a[2]a[5]b[8]b[1])/(a[8]a[1]b[2]b[5])),
+-((a[3]a[1]b[9]b[2])/(a[9]a[2]b[3]b[1])),
+-((a[4]a[2]b[10]b[3])/(a[10]a[3]b[4]b[2])),
+-((a[5]a[3]b[6]b[4])/(a[6]a[4]b[5]b[3]))
 }/.evalP;
-%-%%
+%-%%//DeleteDuplicates
